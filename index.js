@@ -1,32 +1,12 @@
-const express = require('express');
-const { ApolloServer } = require('apollo-server-express');
-const mongoose = require('mongoose');
-const typeDefs = require('./graphql/schema');
-const resolvers = require('./graphql/resolvers');
+const startServer = require('./setup'); // Import the startServer function
 
-
-async function startServer() {
-  const app = express();
-  const apolloServer = new ApolloServer({
-      typeDefs,
-      resolvers,
-      persistedQueries: false 
-  });
-
-  await apolloServer.start();
-  apolloServer.applyMiddleware({ app, path: '/graphql' });
-
-  await mongoose.connect('mongodb+srv://admin:829682@cluster0.mznpgmx.mongodb.net/comp3133_assigment1?retryWrites=true&w=majority', {
-    //   useNewUrlParser: true,
-    //   useUnifiedTopology: true,
-  }).then(() => console.log('Connected to MongoDB'))
-      .catch(err => console.error('Could not connect to MongoDB', err));
-
-  const PORT = process.env.PORT || 4000;
-  app.listen(PORT, () => {
-      console.log(`Server running on http://localhost:${PORT}${apolloServer.graphqlPath}`);
-  });
+async function main() {
+  try {
+    await startServer(); // Call the startServer function
+    console.log('Server started successfully!');
+  } catch (error) {
+    console.error('Error starting server:', error);
+  }
 }
 
-startServer();
-
+main();
