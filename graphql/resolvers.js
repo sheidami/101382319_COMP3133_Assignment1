@@ -11,13 +11,10 @@ const resolvers = {
       return await Employee.findById(args._id);
     },
     login: async (parent, args) => {
-      const { username, email, password } = args;
-      const user = await User.findOne({
-        $or: [
+      const { username, password } = args;
+      const user = await User.findOne(
           { username: username },
-          { email: email }
-        ]
-      });
+       );
       
 
       if (!user) {

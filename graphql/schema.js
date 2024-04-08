@@ -19,10 +19,9 @@ const typeDefs = gql`
 
   type Query {
     getEmployees: [Employee]
-    getEmployeeByID(_id: ID!): Employee
+    getEmployeeByID(_id: String!): Employee
     login(
       username: String!,
-      email: String!, 
       password: String!
     ): User
    
@@ -44,7 +43,7 @@ const typeDefs = gql`
     ): Employee
 
     updateEmployee(
-      _id: ID!
+      _id: String!
       first_name: String!
       last_name: String!
       email: String!
@@ -52,7 +51,7 @@ const typeDefs = gql`
       salary: Float!
     ): Employee
 
-    deleteEmployee(_id: ID!): String
+    deleteEmployee(_id: String!): Employee
   }
 `;
 module.exports = typeDefs;
