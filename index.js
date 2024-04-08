@@ -10,6 +10,7 @@ async function startServer() {
   const apolloServer = new ApolloServer({
       typeDefs,
       resolvers,
+      persistedQueries: false 
   });
 
   await apolloServer.start();
